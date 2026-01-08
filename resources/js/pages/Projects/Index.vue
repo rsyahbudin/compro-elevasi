@@ -2,7 +2,7 @@
 import CategoryFilter from '@/components/CategoryFilter.vue';
 import ProjectCard from '@/components/ProjectCard.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
-import { Link, router } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 
 interface Category {
     id: number;
@@ -32,7 +32,7 @@ interface PaginatedProjects {
     }>;
 }
 
-defineProps<{
+const props = defineProps<{
     projects: PaginatedProjects;
     categories: Category[];
     activeCategory: string | null;
@@ -40,6 +40,17 @@ defineProps<{
 
 const selectCategory = (slug: string | null) => {
     router.get('/projects', slug ? { category: slug } : {}, {
+        preserveState: true,
+        preserveScroll: false, // Scroll to top when changing category
+    });
+};
+
+const goToPage = (page: number) => {
+    const params: Record<string, any> = { page };
+    if (props.activeCategory) {
+        params.category = props.activeCategory;
+    }
+    router.get('/projects', params, {
         preserveState: true,
         preserveScroll: true,
     });
@@ -155,43 +166,43 @@ const selectCategory = (slug: string | null) => {
             class="flex w-full justify-center py-10 pb-32"
         >
             <div class="flex items-center gap-6">
-                <Link
+                <button
                     v-if="projects.current_page > 1"
-                    :href="`/projects?page=${projects.current_page - 1}${activeCategory ? '&category=' + activeCategory : ''}`"
-                    class="flex items-center justify-center text-gray-500 transition-colors hover:text-primary"
+                    class="flex items-center justify-center text-gray-500 transition-colors hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                    @click="goToPage(projects.current_page - 1)"
                 >
                     <span class="material-symbols-outlined">west</span>
                     <span
                         class="ml-2 text-sm font-medium tracking-wider uppercase"
                         >Prev</span
                     >
-                </Link>
+                </button>
                 <div class="flex gap-2">
                     <template v-for="page in projects.last_page" :key="page">
-                        <Link
-                            :href="`/projects?page=${page}${activeCategory ? '&category=' + activeCategory : ''}`"
+                        <button
                             class="flex size-8 items-center justify-center rounded-sm text-xs font-bold transition-colors"
                             :class="
                                 page === projects.current_page
                                     ? 'bg-primary text-white shadow-sm'
                                     : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
                             "
+                            @click="goToPage(page)"
                         >
                             {{ page }}
-                        </Link>
+                        </button>
                     </template>
                 </div>
-                <Link
+                <button
                     v-if="projects.current_page < projects.last_page"
-                    :href="`/projects?page=${projects.current_page + 1}${activeCategory ? '&category=' + activeCategory : ''}`"
-                    class="flex items-center justify-center text-gray-500 transition-colors hover:text-primary"
+                    class="flex items-center justify-center text-gray-500 transition-colors hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                    @click="goToPage(projects.current_page + 1)"
                 >
                     <span
                         class="mr-2 text-sm font-medium tracking-wider uppercase"
                         >Next</span
                     >
                     <span class="material-symbols-outlined">east</span>
-                </Link>
+                </button>
             </div>
         </section>
     </MainLayout>

@@ -24,7 +24,7 @@ class ProjectController extends Controller
             });
         }
 
-        $projects = $projectsQuery->paginate(12)->withQueryString();
+        $projects = $projectsQuery->paginate(8)->withQueryString();
 
         return Inertia::render('Projects/Index', [
             'projects' => $projects,
