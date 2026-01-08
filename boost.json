@@ -1,0 +1,12 @@
+{
+    "agents": [
+        "claude_code",
+        "gemini"
+    ],
+    "editors": [
+        "gemini",
+        "vscode"
+    ],
+    "guidelines": [],
+    "herd_mcp": true
+}
