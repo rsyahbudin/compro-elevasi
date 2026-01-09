@@ -49,8 +49,8 @@ class UpdateSettingRequest extends FormRequest
             'hero_subtitle' => 'nullable|string|max:1000',
 
             // Branding (logo uploads)
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
-            'logo_white' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp,gif|max:2048',
+            'logo_white' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp,gif|max:2048',
         ];
     }
 
@@ -79,10 +79,10 @@ class UpdateSettingRequest extends FormRequest
             'hero_title.max' => 'Hero title cannot exceed 500 characters.',
             'hero_subtitle.max' => 'Hero subtitle cannot exceed 1000 characters.',
             'logo.image' => 'Logo must be an image file.',
-            'logo.mimes' => 'Logo must be a file of type: jpeg, png, jpg, svg, webp.',
+            'logo.mimes' => 'Logo must be a file of type: jpeg, png, jpg, svg, webp, gif.',
             'logo.max' => 'Logo size cannot exceed 2MB.',
             'logo_white.image' => 'Logo (white) must be an image file.',
-            'logo_white.mimes' => 'Logo (white) must be a file of type: jpeg, png, jpg, svg, webp.',
+            'logo_white.mimes' => 'Logo (white) must be a file of type: jpeg, png, jpg, svg, webp, gif.',
             'logo_white.max' => 'Logo (white) size cannot exceed 2MB.',
         ];
     }

@@ -65,6 +65,9 @@ class SettingController extends Controller
             Setting::set('logo_white', $path, 'branding');
         }
 
+        // Clear all settings cache to ensure changes are immediately visible
+        Setting::clearCache();
+
         return redirect()->back()
             ->with('success', 'Settings updated successfully.');
     }

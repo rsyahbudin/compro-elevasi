@@ -62,14 +62,34 @@ class Setting extends Model
      */
     public static function getByGroup(string $group): array
     {
-        $settings = static::where('group', $group)->get();
+        return Cache::remember("settings.group.{$group}", 3600, function () use ($group) {
+            $settings = static::where('group', $group)->get();
 
-        $result = [];
-        foreach ($settings as $setting) {
-            $decoded = json_decode($setting->value, true);
-            $result[$setting->key] = json_last_error() === JSON_ERROR_NONE ? $decoded : $setting->value;
+            $result = [];
+            foreach ($settings as $setting) {
+                $decoded = json_decode($setting->value, true);
+                $result[$setting->key] = json_last_error() === JSON_ERROR_NONE ? $decoded : $setting->value;
+            }
+
+            return $result;
+        });
+    }
+
+    /**
+     * Clear all cached settings.
+     */
+    public static function clearCache(): void
+    {
+        // Clear individual setting caches
+        $allSettings = static::all();
+        foreach ($allSettings as $setting) {
+            Cache::forget("setting.{$setting->key}");
         }
 
-        return $result;
+        // Clear group caches
+        $groups = static::distinct()->pluck('group');
+        foreach ($groups as $group) {
+            Cache::forget("settings.group.{$group}");
+        }
     }
 }
