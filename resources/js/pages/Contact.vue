@@ -11,6 +11,8 @@ defineProps<{
         address: string;
         phone: string;
         email: string;
+        whatsapp?: string;
+        map_url?: string;
     };
 }>();
 
@@ -93,10 +95,7 @@ const submit = () => {
                                     <p
                                         class="text-sm leading-relaxed text-gray-500"
                                     >
-                                        {{ contact.phone }}<br />
-                                        <span class="text-xs opacity-70"
-                                            >Mon-Fri, 9am - 6pm WIB</span
-                                        >
+                                        {{ contact.phone }}
                                     </p>
                                 </div>
                             </div>
@@ -122,23 +121,20 @@ const submit = () => {
                             </div>
                         </div>
 
-                        <!-- Map Placeholder -->
+                        <!-- Map -->
                         <div
-                            class="group relative h-64 w-full overflow-hidden rounded border border-gray-200 lg:h-80"
+                            v-if="contact.map_url"
+                            class="h-64 w-full overflow-hidden rounded border border-gray-200 lg:h-80"
                         >
-                            <img
-                                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop"
-                                alt="Map"
-                                class="h-full w-full object-cover opacity-80 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0"
-                            />
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-80"
-                            ></div>
-                            <div
-                                class="absolute bottom-4 left-4 rounded bg-white px-3 py-1 text-xs font-bold text-gray-900 shadow-md"
-                            >
-                                Jakarta HQ
-                            </div>
+                            <iframe
+                                :src="contact.map_url"
+                                width="100%"
+                                height="100%"
+                                style="border: 0"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                            ></iframe>
                         </div>
                     </div>
 
@@ -158,7 +154,7 @@ const submit = () => {
                                 <div class="flex flex-1 flex-col gap-2">
                                     <Label
                                         for="name"
-                                        class="text-xs font-medium tracking-wider text-gray-500 uppercase"
+                                        class="text-xs font-medium tracking-wider text-gray-700 uppercase"
                                         >Name *</Label
                                     >
                                     <Input
@@ -166,7 +162,7 @@ const submit = () => {
                                         v-model="form.name"
                                         type="text"
                                         placeholder="Enter your full name"
-                                        class="h-12"
+                                        class="h-12 border-gray-300 focus:border-primary focus:ring-primary"
                                         required
                                     />
                                     <span
@@ -178,7 +174,7 @@ const submit = () => {
                                 <div class="flex flex-1 flex-col gap-2">
                                     <Label
                                         for="email"
-                                        class="text-xs font-medium tracking-wider text-gray-500 uppercase"
+                                        class="text-xs font-medium tracking-wider text-gray-700 uppercase"
                                         >Email Address *</Label
                                     >
                                     <Input
@@ -186,7 +182,7 @@ const submit = () => {
                                         v-model="form.email"
                                         type="email"
                                         placeholder="Enter your email"
-                                        class="h-12"
+                                        class="h-12 border-gray-300 focus:border-primary focus:ring-primary"
                                         required
                                     />
                                     <span
@@ -201,7 +197,7 @@ const submit = () => {
                                 <div class="flex flex-1 flex-col gap-2">
                                     <Label
                                         for="phone"
-                                        class="text-xs font-medium tracking-wider text-gray-500 uppercase"
+                                        class="text-xs font-medium tracking-wider text-gray-700 uppercase"
                                         >Phone Number</Label
                                     >
                                     <Input
@@ -209,13 +205,13 @@ const submit = () => {
                                         v-model="form.phone"
                                         type="tel"
                                         placeholder="Enter your phone number"
-                                        class="h-12"
+                                        class="h-12 border-gray-300 focus:border-primary focus:ring-primary"
                                     />
                                 </div>
                                 <div class="flex flex-1 flex-col gap-2">
                                     <Label
                                         for="location"
-                                        class="text-xs font-medium tracking-wider text-gray-500 uppercase"
+                                        class="text-xs font-medium tracking-wider text-gray-700 uppercase"
                                         >Project Location</Label
                                     >
                                     <Input
@@ -223,7 +219,7 @@ const submit = () => {
                                         v-model="form.location"
                                         type="text"
                                         placeholder="City, Province"
-                                        class="h-12"
+                                        class="h-12 border-gray-300 focus:border-primary focus:ring-primary"
                                     />
                                 </div>
                             </div>
@@ -231,7 +227,7 @@ const submit = () => {
                             <div class="flex flex-col gap-2">
                                 <Label
                                     for="message"
-                                    class="text-xs font-medium tracking-wider text-gray-500 uppercase"
+                                    class="text-xs font-medium tracking-wider text-gray-700 uppercase"
                                     >Project Details *</Label
                                 >
                                 <Textarea
@@ -239,6 +235,7 @@ const submit = () => {
                                     v-model="form.message"
                                     placeholder="Tell us about your project, timeline, and vision..."
                                     rows="5"
+                                    class="border-gray-300 focus:border-primary focus:ring-primary"
                                     required
                                 />
                                 <span

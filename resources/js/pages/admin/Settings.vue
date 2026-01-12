@@ -33,11 +33,11 @@ const form = useForm({
     phone: props.settings.contact?.phone || '',
     email: props.settings.contact?.email || '',
     whatsapp: props.settings.contact?.whatsapp || '',
+    map_url: props.settings.contact?.map_url || '',
 
     // Social
     instagram: props.settings.social?.instagram || '',
     linkedin: props.settings.social?.linkedin || '',
-    twitter: props.settings.social?.twitter || '',
 
     // Stats
     years_in_business: props.settings.stats?.years_in_business || '',
@@ -50,6 +50,12 @@ const form = useForm({
 
     // Branding
     logo: null as File | null,
+
+    // About Page
+    about_section: props.settings.about?.about_section || '',
+    our_people_section: props.settings.about?.our_people_section || '',
+    the_journey_section: props.settings.about?.the_journey_section || '',
+    the_blueprint_section: props.settings.about?.the_blueprint_section || '',
     logo_white: null as File | null,
 });
 
@@ -228,6 +234,18 @@ const submit = () => {
                                 placeholder="+6281234567890"
                             />
                         </div>
+                        <div class="space-y-2 sm:col-span-2">
+                            <Label for="map_url">Google Maps Embed URL</Label>
+                            <Input
+                                id="map_url"
+                                v-model="form.map_url"
+                                type="url"
+                                placeholder="https://www.google.com/maps/embed?pb=..."
+                            />
+                            <p class="text-xs text-gray-400">
+                                Get embed URL: Google Maps → Share → Embed a map
+                            </p>
+                        </div>
                     </CardContent>
                 </Card>
 
@@ -236,7 +254,7 @@ const submit = () => {
                     <CardHeader>
                         <CardTitle>Social Media</CardTitle>
                     </CardHeader>
-                    <CardContent class="grid gap-6 sm:grid-cols-3">
+                    <CardContent class="grid gap-6 sm:grid-cols-2">
                         <div class="space-y-2">
                             <Label for="instagram">Instagram URL</Label>
                             <Input
@@ -253,14 +271,6 @@ const submit = () => {
                                 type="text"
                             />
                         </div>
-                        <div class="space-y-2">
-                            <Label for="twitter">Twitter URL</Label>
-                            <Input
-                                id="twitter"
-                                v-model="form.twitter"
-                                type="text"
-                            />
-                        </div>
                     </CardContent>
                 </Card>
 
@@ -269,7 +279,7 @@ const submit = () => {
                     <CardHeader>
                         <CardTitle>Homepage Statistics</CardTitle>
                     </CardHeader>
-                    <CardContent class="grid gap-6 sm:grid-cols-3">
+                    <CardContent class="grid gap-6 sm:grid-cols-2">
                         <div class="space-y-2">
                             <Label for="years_in_business"
                                 >Years in Business</Label
@@ -301,6 +311,55 @@ const submit = () => {
                     </CardContent>
                 </Card>
 
+
+                <!-- About Page Content -->
+                <Card>
+                    <CardHeader>
+                        <CardTitle>About Page Content</CardTitle>
+                    </CardHeader>
+                    <CardContent class="space-y-6">
+                        <div class="space-y-2">
+                            <Label for="about_section">About Section</Label>
+                            <Textarea
+                                id="about_section"
+                                v-model="form.about_section"
+                                rows="4"
+                                placeholder="Main about us content..."
+                            />
+                            <p class="text-xs text-gray-400">Leave empty to hide this section</p>
+                        </div>
+                        <div class="space-y-2">
+                            <Label for="our_people_section">Our People Section</Label>
+                            <Textarea
+                                id="our_people_section"
+                                v-model="form.our_people_section"
+                                rows="4"
+                                placeholder="Our people content..."
+                            />
+                            <p class="text-xs text-gray-400">Leave empty to hide this section</p>
+                        </div>
+                        <div class="space-y-2">
+                            <Label for="the_journey_section">The Journey Section</Label>
+                            <Textarea
+                                id="the_journey_section"
+                                v-model="form.the_journey_section"
+                                rows="4"
+                                placeholder="The journey content..."
+                            />
+                            <p class="text-xs text-gray-400">Leave empty to hide this section</p>
+                        </div>
+                        <div class="space-y-2">
+                            <Label for="the_blueprint_section">The Blueprint Section</Label>
+                            <Textarea
+                                id="the_blueprint_section"
+                                v-model="form.the_blueprint_section"
+                                rows="4"
+                                placeholder="The blueprint content..."
+                            />
+                            <p class="text-xs text-gray-400">Leave empty to hide this section</p>
+                        </div>
+                    </CardContent>
+                </Card>
                 <!-- Hero Section -->
                 <Card>
                     <CardHeader>

@@ -7,7 +7,7 @@ const page = usePage();
 const isMobileMenuOpen = ref(false);
 
 const navLinks = [
-    { name: 'Projects', href: '/projects' },
+    // { name: 'Projects', href: '/projects' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
 ];
@@ -43,7 +43,10 @@ const companyName = computed(() => {
                             :alt="companyName"
                             class="h-10 w-auto object-contain"
                         />
-                        <span class="font-display text-xl font-bold tracking-tight text-gray-900 uppercase">Elevasi Design Build</span>
+                        <span
+                            class="font-display text-xl font-bold tracking-tight text-gray-900 uppercase"
+                            >Elevasi Design Build</span
+                        >
                     </template>
                     <template v-else>
                         <div
@@ -76,10 +79,10 @@ const companyName = computed(() => {
                         </Link>
                     </div>
                     <Link
-                        href="/contact"
+                        href="/projects"
                         class="group flex items-center gap-2 rounded bg-primary px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-green-900/10 transition-all duration-300 hover:bg-[#1B5E20]"
                     >
-                        <span>Get a Quote</span>
+                        <span>Projects</span>
                         <span
                             class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-1"
                             >arrow_forward</span
@@ -118,7 +121,7 @@ const companyName = computed(() => {
                         class="mt-2 flex items-center justify-center gap-2 rounded bg-primary px-6 py-2.5 text-sm font-bold text-white"
                         @click="isMobileMenuOpen = false"
                     >
-                        <span>Get a Quote</span>
+                        <span>Projects</span>
                         <span class="material-symbols-outlined text-[16px]"
                             >arrow_forward</span
                         >

@@ -21,6 +21,12 @@ interface TeamMember {
 }
 
 defineProps<{
+    about?: {
+        about_section?: string;
+        our_people_section?: string;
+        the_journey_section?: string;
+        the_blueprint_section?: string;
+    };
     company: {
         name: string;
         established: string;
@@ -155,7 +161,10 @@ defineProps<{
         </section>
 
         <!-- Timeline Section -->
-        <section class="w-full bg-gray-50 py-24">
+        <section
+            v-if="about?.the_journey_section || timeline.length > 0"
+            class="w-full bg-gray-50 py-24"
+        >
             <div class="mx-auto max-w-[1000px] px-6 md:px-10">
                 <div class="mb-16 flex items-end gap-4">
                     <h2
@@ -210,6 +219,7 @@ defineProps<{
 
         <!-- Values Section -->
         <section
+            v-if="about?.the_blueprint_section || values.length > 0"
             class="mx-auto w-full max-w-[1440px] bg-white px-6 py-24 md:px-10 md:py-32"
         >
             <div class="mb-16 flex items-end gap-4">
@@ -245,7 +255,10 @@ defineProps<{
         </section>
 
         <!-- Team Section -->
-        <section class="w-full bg-gray-50 py-24 text-gray-900">
+        <!-- <section
+            v-if="about?.our_people_section || team.length > 0"
+            class="w-full bg-gray-50 py-24 text-gray-900"
+        >
             <div class="mx-auto max-w-[1440px] px-6 md:px-10">
                 <div
                     class="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end"
@@ -263,8 +276,10 @@ defineProps<{
                         </h2>
                     </div>
                     <p class="max-w-md text-sm text-gray-500 md:text-right">
-                        A collective of visionaries, engineers, and artisans
-                        dedicated to the art of building.
+                        {{
+                            about?.our_people_section ||
+                            'A collective of visionaries, engineers, and artisans dedicated to the art of building.'
+                        }}
                     </p>
                 </div>
                 <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
@@ -294,7 +309,7 @@ defineProps<{
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- CTA Section -->
         <section

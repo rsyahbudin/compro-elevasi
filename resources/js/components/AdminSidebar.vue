@@ -13,12 +13,16 @@ import {
 } from '@/components/ui/sidebar';
 import { Link, router, usePage } from '@inertiajs/vue3';
 import {
+    Calendar, // Added Calendar as it's used but not imported
     FolderOpen,
     Home,
     LayoutDashboard,
     LogOut,
+    Mail,
     Settings,
     Tag,
+    Trophy,
+    Users,
 } from 'lucide-vue-next';
 import { computed } from 'vue';
 
@@ -49,6 +53,30 @@ const navItems: NavItem[] = [
         href: '/admin/projects',
         icon: FolderOpen,
         active: (path) => path.startsWith('/admin/projects'),
+    },
+    {
+        title: 'Messages',
+        href: '/admin/messages',
+        icon: Mail,
+        active: (path) => path.startsWith('/admin/messages'),
+    },
+    {
+        title: 'Team',
+        href: '/admin/team',
+        icon: Users,
+        active: (path) => path.startsWith('/admin/team'),
+    },
+    {
+        title: 'Timeline',
+        href: '/admin/timeline',
+        icon: Calendar,
+        active: (path) => path.startsWith('/admin/timeline'),
+    },
+    {
+        title: 'Values',
+        href: '/admin/values',
+        icon: Trophy,
+        active: (path) => path.startsWith('/admin/values'),
     },
     {
         title: 'Settings',
